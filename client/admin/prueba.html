@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/litera/bootstrap.min.css">
+    <title>Aerolinea comercial</title>
+</head>
+<body>
+    <!-- Esta es la navegacion-->
+    <nav class="navbar navbar-light bg-light">
+        <a href="/" class="navbar-brand">
+            Easy Travel
+        </a>
+    </nav>
+    <div class="container">
+        <div id="App" class="row pt-5">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Crear producto</h5>
+                    </div>
+                    <form id="product-form" class="card-body">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="nombre Producto" class="form-control">
+                            
+                        </div>
+                        <div class="form-group">
+                            <input type="number" step="0.01" id="price" placeholder="Precio" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="anio" value="2020" min="1900"  placeholder="año de fabricacion" class="form-control">
+                        </div>
+                        <button type="submit" value="Save" class="btn btn-primary btn-block">Guardar</button>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <script src="App.js"></script>
+    
+</body>
+</html>

@@ -18,22 +18,26 @@ App.use(morgan('dev'))
 App.use(express.static(path.join(__dirname, 'client')));
 
 
+
 // Ruta inicial
 App.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 
-// Ruta para obtener datos de ejemplo desde un servicio externo
-App.get('/api/aeropuertos', async (req, res) => {
-    try {
-        const respuesta = await axios.get('https://jsonplaceholder.typicode.com/posts'); // URL de ejemplo
-        res.json(respuesta.data); // Devuelve los datos obtenidos al cliente
-    } catch (error) {
-        console.error('Error al realizar la solicitud:', error.message);
-        res.status(500).send('Error al obtener los datos externos.');
-    }
+// Ruta para obtener los aeropuertos desde la base de datos
+// Ya no es necesario hacer la consulta directamente en el index.js
+App.use('/api', aeropuertoRoutes);  // Esta línea conecta las rutas de aeropuertos
+
+
+
+// archivo para configurar el puerto, el cual se va a usar en el app.js para capturar los datos 
+App.get('/api/config', (req, res) => {
+    res.json({ port: PORT });
 });
+
+// archivo que manaja la logica para la captura de los datos desde el formulario html
+App.use('/api', express.static(path.join(__dirname, 'api')));
 
 // Rutas de aeropuertos
 App.use(aeropuertoRoutes);

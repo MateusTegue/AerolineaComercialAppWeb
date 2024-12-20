@@ -31,17 +31,18 @@ export const registrarAeropuerto = async (req, res) => {
 };
 
 // mostrar todos los aeropuestos registrados 
+// aeropuerto.controller.js
 export const mostrarAeropuertos = async (req, res) => {
     try {
-        // Consulta a la base de datos para obtener todos los aeropuertos
-        const aeropuertos = await database.query(" SELECT * FROM aeropuerto");
-        // Respuesta exitosa
-        return res.status(200).json({ ok: true, mensaje: "Aeropuertos obtenidos correctamente", data: aeropuertos.rows });
-        } catch (error) {
-            // Manejo de errores
-            return res.status(500).json({ ok: false, mensaje: "Error al obtener los aeropuertos ", error: error.message });
-            }
+        const result = await database.query("SELECT * FROM aeropuerto");
+        res.json(result.rows); // Devuelve los aeropuertos como un JSON
+    } catch (error) {
+        console.error('Error al obtener los aeropuertos:', error);
+        res.status(500).json({ mensaje: 'Error al obtener los aeropuertos.' });
+    }
 };
+
+
 
 
 

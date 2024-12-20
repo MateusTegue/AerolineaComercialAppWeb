@@ -3,21 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/litera/bootstrap.min.css">
     <title>Registrar Aeropuerto</title>
 </head>
 <body>
-    <h1>Registrar Aeropuerto</h1>
-    <form id="aeropuertoForm">
-        <label for="nombre">Nombre del aeropuerto:</label>
-        <input type="text" id="nombre" name="nombre" required><br><br>
+    <main class="container ">
+        <section id="Aeropuerto" class="row pt-5">
+            <article class="col-md-4">
+                <div class="card">
+                    <div class="card-header" style="text-align: center;">
+                        <h5>Registrar Aeropuerto</h5>
+                    </div>
+                    <form id="aeropuertoForm" class="card-body">
 
-        <label for="ciudad">Ciudad:</label>
-        <input type="text" id="ciudad" name="ciudad" required><br><br>
+                        <div class="form-group">
+                            <input type="text" id="nombre" placeholder="nombre del aeropuerto" class="form-control" required>
+                        </div>
+                        <div>
+                            <input type="text" id="ciudad" placeholder="ciudad del aeropuerto " class="form-control" required>
+                        </div>
+                        <div>
+                            <input type="text" id="pais" placeholder="pais del aeropuerto" class="form-control " required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                    </form>
+                </div>
+            </article>
+            <div id="lista-aeropuertos" class="col-md-8">
+                <table class="table table-bordered table-striped table-hover mt-4">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Ciudad</th>
+                            <th scope="col">Pais</th>
+                        </tr>
+                    </thead>
+                    <tbody id="aeropuerto">
+                    </tbody>
+                </table>
+            </div>
 
-        <label for="pais">País:</label>
-        <input type="text" id="pais" name="pais" required><br><br>
+        </section>
 
-        <button type="submit">Registrar</button>
-    </form>
+    </main>
+    <script src="/api/aeropuerto.api.js"></script>
 </body>
 </html>
+
+
+
+

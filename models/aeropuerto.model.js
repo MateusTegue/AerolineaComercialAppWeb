@@ -15,7 +15,7 @@ const crearAeropuetos = async ( nombre , ciudad , pais ) => {
 };
 
 // mostrar los aeropuertos disponibles 
-const mostrarAeropuertos = async (req, res ) => {
+const mostrarAeropuertos = async ( ) => {
     const result = await database.query("SELECT * FROM aeropuerto");
     res.json(result.rows);
 
