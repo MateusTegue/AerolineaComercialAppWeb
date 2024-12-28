@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/litera/bootstrap.min.css">
+    <title>crud destino</title>
+</head>
+<body>
+    <main class="container ">
+        <section id="Destino" class="row pt-5">
+            <article class="col-md-4">
+                <div class="card">
+                    <div class="card-header" style="text-align: center;">
+                        <h5>Registrar Destino</h5>
+                    </div>
+                    <form id="destinoForm" class="card-body">
+                        <div class="form-group">
+                            <input type="text" id="pais_llegada" placeholder="Pais de llegada" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="ciudad_llegada" placeholder="ciudad de llegada" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="id_aeropuerto" class="form-control" required>
+                              <option value="">Seleccione un Aeropuerto</option>
+                            </select>
+                          </div>
+                          
+                       <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                    </form>
+                </div>
+            </article>
+            <div id="lista-aeropuertos" class="col-md-8">
+                <table class="table table-bordered table-striped table-hover mt-4">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Pais</th>
+                            <th scope="col">Ciudad</th>
+                            <th scope="col">Aeropuerto</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="destino">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <script src="/api/destini.api.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="/" target="_blank">Inicio</a><br>
+<a href="/registrarAeropuerto" target="_blank">Register Aeropuertos</a><br>
+
+
+
+<h1>crud destino</h1>

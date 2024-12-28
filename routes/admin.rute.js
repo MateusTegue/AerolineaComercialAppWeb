@@ -10,10 +10,32 @@ router.get("/administracion", (req, res) => {
 
 });
 
-// ruta para registrar aeropuertos
+// ruta para el CRUD de aeropuertos
 router.get("/registrarAeropuerto", (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'admin', 'registrarAeropuerto.html'));
+    res.sendFile(path.join(__dirname, 'client', 'admin', 'crud_aeropuerto.html'));
     });
+
+// ruta para el CRUD de destino
+router.get("/registrarDestino", (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'admin', 'crud_destino.html'));
+    });
+
+router.get("/registrarPasajero" , (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'admin', 'crud_pasajero.html'));
+        });
+        
+router.get("/registrarTiquete", (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'admin', 'crud_tiquete.html'));
+    });
+
+router.get("/registrarEmpleado", (req , res ) => {
+    res.sendFile(path.join(__dirname, 'client', 'admin', 'crud_empleado.html'));
+})
+
+router.get("/registrarTripulacion", (req,  res) => {
+    res.sendFile(path.join(__dirname, 'client', 'admin', 'crud_tripulacion.html'))
+})
+
 
 // ruta para ir a inicio
 router.get("/", (req, res) => {

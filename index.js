@@ -4,6 +4,11 @@ import morgan from 'morgan';
 import path from 'path';
 import { PORT } from './config/puerto.js';
 import aeropuertoRoutes from './routes/aeropuerto.rute.js';
+import destinoRoutes from './routes/destino.rute.js';
+import pasajeroRoutes from './routes/pasajero.rute.js';
+import tiqueteRouter from './routes/tiquete.rute.js';
+import empleadoRouter from './routes/empleado.rute.js';
+import tripulacionRouter from './routes/tripulacion.rute.js'
 import clienteRoutes from './routes/cliente.rute.js';
 import adminRouter from './routes/admin.rute.js';
 const App = express();
@@ -41,6 +46,11 @@ App.use('/api', express.static(path.join(__dirname, 'api')));
 
 // Rutas de aeropuertos
 App.use(aeropuertoRoutes);
+App.use(destinoRoutes);
+App.use(pasajeroRoutes);
+App.use(tiqueteRouter);
+App.use(empleadoRouter);
+App.use(tripulacionRouter);
 App.use(clienteRoutes);
 App.use(adminRouter);
 
