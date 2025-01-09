@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const pasajerosTableBody = document.getElementById("pasajero");
     // const buscarButton = document.getElementById("buscarAeropuerto");
   
+
+    // configuracion del puerto el cual conecta el fronten con el backend
     let backendUrl = "";
     try {
       const configResponse = await fetch("/api/config");
@@ -13,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       alert("No se pudo obtener la configuración del servidor.");
       return;
     }
-  
+     // funcion para cargar registros de la base de dotos 
     const cargarPasajeros = async () => {
       try {
         const response = await fetch(`${backendUrl}/api/pasajeros`);
@@ -47,7 +49,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error("Error al cargar los pasajeros:", error);
       }
     };
-
+    
+    // funcion para actualizar registros de la base de datos 
     const editarPasajero = async (id_pasajero) => {
         try {
           const response = await fetch(`${backendUrl}/api/pasajeros/${id_pasajero}`);
@@ -106,7 +109,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       };
       
-      // Función para restablecer el formulario al estado inicial
+      // funcion para  para restablecer el formulario al estado inicial
       const resetFormulario = () => {
         document.getElementById("pasajeroForm").reset();
         const submitButton = document.querySelector('button[type="submit"]');
@@ -116,14 +119,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       
 
       
-
-
-
-
-
-
-
-        // eventos para los botenes que estan disponibles en el formulario
+        // funcion que usaremos para agregarle envento a los botones qu aparecen el la tabla 
         const agregarEventos = () => {
             const editButtons = document.querySelectorAll(".edit-btn");
             const deleteButtons = document.querySelectorAll(".delete-btn");
@@ -149,7 +145,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           };
 
 
-        // eliminar pasajeros 
+        // funcion para eliminar registros de la base de datos 
         const eliminarPasajero = async (id_pasajero) => {
             try {
                const response = await fetch(`${backendUrl}/api/pasajeros/${id_pasajero}`, {
@@ -167,7 +163,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
 
-    // registrar pasajeros 
+    // funcion para registrar pasajeros en la base de datos 
     const registrarPasajeros = async (event) => {
         event.preventDefault();
 
@@ -209,11 +205,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             alert("No se pudo enviar la solicitud. Intentelo nuevamente ")
         }
     }
-
-
-    // actualizar impormacion de los pasajeros
     
-
+    
     formulario.onsubmit = registrarPasajeros;
     cargarPasajeros();
 })

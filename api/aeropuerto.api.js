@@ -13,7 +13,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       alert("No se pudo obtener la configuración del servidor.");
       return;
     }
-  
+
+
+    
+    // funcion para cargar los registros de los aeropuertos 
     const cargarAeropuerto = async () => {
       try {
         const response = await fetch(`${backendUrl}/api/aeropuertos`);
@@ -203,17 +206,21 @@ document.addEventListener("DOMContentLoaded", async () => {
           cargarAeropuerto();
           formulario.reset();
         } else if (response.status === 409) {
-          alert(result.mensaje || "El aeropuerto ya existe.");
+          alert("El aeropuerto ya existe.");
         } else {
-          alert(result.mensaje || "Ocurrió un error al registrar el aeropuerto.");
+          alert("Ocurrió un error al registrar el aeropuerto.");
         }
       } catch (error) {
         console.error("Error al registrar aeropuerto:", error);
         alert("No se pudo enviar la solicitud. Inténtalo nuevamente.");
-      }
+      } 
     };
-  
+
+    // 
+
+
     formulario.onsubmit = registrarAeropuerto;
     cargarAeropuerto();
+    
   });
   

@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const formulario = document.getElementById("destinoForm");
   const destinoTableBody = document.getElementById("destino");
   const aeropuertoDropdown = document.getElementById("id_aeropuerto");
-
+  
+  // congiguracion del puerto el cual conecta el frontend y el backend
   let backendUrl = "";
   try {
     const configResponse = await fetch("/api/config");
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // funcion para cargar los registros de la base de datos 
   const cargarDestinos = async () => {
     try {
       const response = await fetch(`${backendUrl}/api/destino`);
@@ -43,7 +45,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("Error al obtener los destinos:", error);
     }
   };
-
+  
+  // funcion para cargar los registrs de aeropuerto de la base de datos
   const cargarAeropuertos = async () => {
     try {
       const response = await fetch(`${backendUrl}/api/aeropuertos`);
@@ -63,7 +66,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("Error al cargar los aeropuertos:", error);
     }
   };
-
+  
+  // funcion para agregar evento a los botones de editar y eliminar
   const agregarEventos = () => {
     const editButtons = document.querySelectorAll(".edit-btn");
     const deleteButtons = document.querySelectorAll(".delete-btn");
@@ -82,7 +86,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
   };
-
+  
+  // funcion para registrar destinos 
   const registrarDestino = async (event) => {
     event.preventDefault();
     const pais_llegada = document.getElementById("pais_llegada").value;
@@ -111,7 +116,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
-  // eliminar
+  // funcion para eliminar registro de la base de datos 
   const eliminarDestino = async (id_destino) => {
     try {
       const response = await fetch(`${backendUrl}/api/destino/${id_destino}`, {
@@ -129,6 +134,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
+   // funcion para actualizar registro de la base de dstos 
   const actualizarDestion = async (id_destino) => {
     try {
       // Realizar la solicitud para obtener los datos del destino

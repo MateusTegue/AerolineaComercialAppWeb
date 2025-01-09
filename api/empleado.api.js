@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const formulario = document.getElementById("empleadoForm");
     const empleadoTableBody = document.getElementById("empleado");
-    // const buscarButton = document.getElementById("buscarAeropuerto");
-  
+    
+    
+    // configuracion del puerto que conecta el forntend y el backend
     let backendUrl = "";
     try {
       const configResponse = await fetch("/api/config");
@@ -13,7 +14,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       alert("No se pudo obtener la configuración del servidor.");
       return;
     }
-  
+    
+    // funcion para cargar registros de la base de datos 
     const cargarEmpleados = async () => {
       try {
         const response = await fetch(`${backendUrl}/api/empleados`);
@@ -71,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       };
 
 
-    // actualizar empleados 
+    // funcion para actualizar registros 
      const editarEmpleado = async (numerocedula) => {
         try {
           const response = await fetch(`${backendUrl}/api/empleados/${numerocedula}`);
@@ -133,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async () => {
      
 
 
-    // eliminar pasajeros 
+    // funcio para eliminar registros de la base de datos
     const eliminarEmpleado = async (numerocedula) => {
         try {
            const response = await fetch(`${backendUrl}/api/empleados/${numerocedula}`, {
@@ -156,7 +158,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-    // registrar pasajeros 
+    // funcion para registrar pasajeros en la base de datos
     const registrarEmpleados = async (event) => {
         event.preventDefault();
 
@@ -200,7 +202,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     // actualizar impormacion de los pasajeros
-    
     formulario.onsubmit = registrarEmpleados;
     cargarEmpleados();
 })

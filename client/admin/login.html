@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/litera/bootstrap.min.css">
+        <title>Login</title>
+    </head>
+<body>
+    <section class="d-flex justify-content-center align-items-center vh-100 bg-dark">
+        
+            <div class="card shadow-sm " style="width: 400px;">
+                <div class="card-header text-center">
+                    <h5>Admin</h5>
+                </div>
+                <form class="card-body " action="/login" method="POST">
+                    <div class="mb-3">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Nombre de usuario" required>
+                    </div>
+    
+                    <div class="mb-3">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
+                    </div>
+    
+                    <button type="submit" class="form-control btn btn-primary">Iniciar Sesión</button>
+                  </form>
+              </div>
+        
+    </section>
+</body>
+</html>

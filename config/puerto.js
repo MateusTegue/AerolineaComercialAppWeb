@@ -1,2 +1,2 @@
-// puerto en el que la App se ejecuta localmente 
+// configuracion del puerto donde la aplicacion se esta ejecutando localmente 
 export const PORT = 5000;

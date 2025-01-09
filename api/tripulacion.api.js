@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const tripulacionTableBody = document.getElementById("tripulacion");
     const tripulacionDropdown = document.getElementById("id_tripulacion");
   
+
+    // configurar el puerto que conecta el frontend con el backend
     let backendUrl = "";
     try {
       const configResponse = await fetch("/api/config");
@@ -13,7 +15,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       alert("No se pudo obtener la configuración del servidor");
       return;
     }
-  
+    
+    // funcion para cargar registros de la base de datos
     const cargarTripulacion = async () => {
         try {
           const response = await fetch(`${backendUrl}/api/tripulacion`);
@@ -48,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       };
   
-    // botones 
+    // funcion para agregar evento a los botones de eliminar y editar los cuales aparecen en la tabla 
     const agregarEventos = () => {
       const editButtons = document.querySelectorAll(".edit-btn");
       const deleteButtons = document.querySelectorAll(".delete-btn");
@@ -71,7 +74,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   
   
-  
+    // funcion para cargar registros de los empleados guargados en la base de datos 
     const cargarEmpleados = async () => {
       try {
           const response = await fetch(`${backendUrl}/api/empleados`);
@@ -93,6 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
   };
   
+  // funcion para registrar datos de la tripulacion en la base de datos 
   const registrarTripulacion = async (event) => {
     event.preventDefault();
     const codigo = document.getElementById("codigo").value;
@@ -125,7 +129,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
   
-  ///////////////////////////////////////////////////////////////
+  // funcion parar actualizar datos de la tripulacion
   const actualizarTripulacion = async (id_tripulacion) => {
     try {
       // Obtener los detalles de la tripulación por su ID
@@ -183,7 +187,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   
   
-  // eliminar tiquete 
+  // funcion para eliminar registro de tiquete 
   const eliminarTripulacion = async (id_tripulacion) => {
     try {
       const response = await fetch(`${backendUrl}/api/tripulacion/${id_tripulacion}`, {
@@ -208,6 +212,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     formulario.onsubmit = registrarTripulacion;
      await cargarTripulacion();
      await cargarEmpleados();
-    // await cargarTiquetes();
   });
   

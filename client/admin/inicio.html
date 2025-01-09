@@ -1,45 +1,69 @@
-
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/litera/bootstrap.min.css">
+    <title>Inicio</title>
 </head>
 <body>
-    <header>
-        <header>
-            <div class="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
-                <div class="bg-dark p-4">
-                  <h3 class="text-body-emphasis ">Easy Travel</h3>
-                  <span class="text-body-secondary fw-bold text-decoration-none">viaje con nosotros</span><br>
-                  <a href="#"class="fw-bold text-decoration-none">Perfil</a><br>
-                  <a href="/"class="fw-bold text-decoration-none">Crerrar Sesion</a><br>
-                </div>
-              </div>
-              <nav class="navbar navbar-dark bg-dark">
-                <div class="container-fluid">
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                </div>
-              </nav>
-        </header>
-    </header>
-    <main>
-         <a href="/registrarAeropuerto" target="_blank" class="fw-bold text-decoration-none">Register Aeropuertos</a><br>
-         <a href="/registrarDestino" target="_blank" class="fw-bold text-decoration-none">Destino</a><br>
-         <a href="/registrarPasajero" target="_blank" class="fw-bold text-decoration-none">Register Pasajero</a><br>
-         <a href="/registrarTiquete" target="_blank" class="fw-bold text-decoration-none">Register Tiquete</a><br>
-         <a href="/registrarEmpleado" target="_blank" class="fw-bold text-decoration-none">Register Empleado</a><br>
-         <a href="/registrarTripulacion" target="_blank" class="fw-bold text-decoration-none">Register Tripulacion</a><br>
-        <h1>Apartado para admin Administrador</h1>
+<header class="bg-dark" >
+    <div class="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
+        <div class="p-4">
+          <a class="fw-bold text-decoration-none">Easy Travel</a><br>
+          <a class="text-body-secondary fw-bold text-decoration-none">viaje con nosotros</a><br>
+          <a href="/administracion"class="fw-bold text-decoration-none">Inicio</a><br>
+          <a href="#"class="fw-bold text-decoration-none">Perfil</a><br>
+          <a href="/"class="fw-bold text-decoration-none">Crerrar Sesion</a><br>
+        </div>
+      </div>
+      <nav class="navbar navbar-dark ">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </nav>
+</header>
+    <main class="container">
+      <section class="container mt-4">
+        <div class="row">
+          <div class="col-6 col-md-4 mb-3">
+            <a href="/Aeropuerto"  class="btn fw-bold text-decoration-none btn-primary w-100">Aeropuerto</a>
+          </div>
+          <div class="col-6 col-md-4 mb-3">
+            <a href="/Destino"     class="btn fw-bold text-decoration-none btn-primary w-100">Destino</a>
+          </div>
+          <div class="col-6 col-md-4 mb-3">
+            <a href="/Pasajero"    class="btn fw-bold text-decoration-none btn-primary w-100">Pasajero</a>
+          </div>
+          <div class="col-6 col-md-4 mb-3">
+            <a href="/Tiquete"     class="btn fw-bold text-decoration-none btn-primary w-100">Tiquete</a>
+          </div>
+          <div class="col-6 col-md-4 mb-3">
+            <a href="/Empleado"    class="btn fw-bold text-decoration-none btn-primary w-100">Empleado</a>
+          </div>
+          <div class="col-6 col-md-4 mb-3">
+            <a href="/Tripulacion" class="btn fw-bold text-decoration-none btn-primary w-100">Tripulacion</a>
+          </div>
+          <div class="col-6 col-md-4 mb-3">
+            <a href="/Avion"       class="btn fw-bold text-decoration-none btn-primary w-100">Avion</a>
+          </div>
+          <div class="col-6 col-md-4 mb-3">
+            <a href="/Mantenimiento" class="btn fw-bold text-decoration-none btn-primary w-100">Mantenimiento</a>
+          </div>
+          <div class="col-6 col-md-4 mb-3">
+            <a href="/Viaje"      class="btn fw-bold text-decoration-none btn-primary w-100">Viaje</a>
+          </div>
+        </div>
+      </section>
     </main>
-
     <footer>
 
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+

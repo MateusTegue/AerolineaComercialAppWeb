@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const tiqueteTableBody = document.getElementById("tiquetes");
   const tiqueteDropdown = document.getElementById("id_tiquete");
 
+
+
+  // configurara el pueto que conecta el fronten con el backend
   let backendUrl = "";
   try {
     const configResponse = await fetch("/api/config");
@@ -13,7 +16,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     alert("No se pudo obtener la configuración del servidor");
     return;
   }
+  
 
+  // funcion para cargar reitros de la base de datos
   const cargarTiquetes = async () => {
     try {
       const response = await fetch(`${backendUrl}/api/tiquetes`);
@@ -44,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
-  // botones 
+  // funcion para agregar evento a los botones de editar y eliminar
   const agregarEventos = () => {
     const editButtons = document.querySelectorAll(".edit-btn");
     const deleteButtons = document.querySelectorAll(".delete-btn");
@@ -67,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-
+  // funcion para cargar registros de la base de datos 
   const cargarPasajero = async () => {
     try {
         const response = await fetch(`${backendUrl}/api/pasajeros`);
@@ -89,6 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 };
 
+// funcion para registrar tiquetes en la base de datos 
 const registrarTiquete = async (event) => {
   event.preventDefault();
   const fecha = document.getElementById("fecha").value;
@@ -127,7 +133,7 @@ const registrarTiquete = async (event) => {
   }
 };
 
-///////////////////////////////////////////////////////////////
+// funcion para actualizar registros de tiquetes de la base de datos 
 const actualizarTiquete = async (id_tiquete) => {
   try {
     // Obtener los detalles del tiquete
@@ -192,7 +198,7 @@ const actualizarTiquete = async (id_tiquete) => {
 
 
 
-// eliminar tiquete 
+// funcion para eliminar registris de tiquetes de la base de datos 
 const eliminarTiquete = async (id_tiquete) => {
   try {
     const response = await fetch(`${backendUrl}/api/tiquetes/${id_tiquete}`, {

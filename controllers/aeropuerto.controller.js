@@ -27,12 +27,7 @@ export const registrarAeropuerto = async (req, res) => {
       ciudad,
       pais
     );
-    return res
-      .status(201)
-      .json({
-        ok: true,
-        mensaje: "Aeropuerto registrado correctamente",
-        data: nuevoAeropuerto,
+    return res.status(201).json({ok: true,mensaje: "Aeropuerto registrado correctamente",data: nuevoAeropuerto,
       });
   } catch (error) {
     console.error("Error al registrar aeropuerto:", error);

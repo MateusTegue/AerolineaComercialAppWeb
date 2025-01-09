@@ -60,7 +60,7 @@ export const eliminarAeropuertosDB = async (id_aeropuerto) => {
             throw new Error("No se encontró el aeropuerto con el ID proporcionado");
         }
 
-        return rows[0]; // Retorna el aeropuerto eliminado
+        return rows[0]; 
     } catch (error) {
         console.error("Error al eliminar el aeropuerto:", error);
         throw new Error("Error al eliminar el aeropuerto");
