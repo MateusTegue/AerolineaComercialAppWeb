@@ -9,8 +9,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       const config = await configResponse.json();
       backendUrl = `http://localhost:${config.port}`;
     } catch (error) {
-      console.error("Error al obtener la configuración del backend:", error);
-      alert("No se pudo obtener la configuración del servidor.");
+      console.log("Error al obtener la configuración del backend:", error);
+      Swal .fire({
+        icon: 'error',
+        title: 'Error al obtener la configuración del backend',
+        text: 'Por favor, inténtelo de nuevo más tarde',
+      });
       return;
     }
 
@@ -19,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // funcion para cargar los registros de los aeropuertos 
     const cargarAeropuerto = async () => {
       try {
-        const response = await fetch(`${backendUrl}/api/aeropuertos`);
+        const response = await fetch('/api/aeropuertos');
         const aeropuertos = await response.json();
         aeropuertoTableBody.innerHTML = "";
   
@@ -43,8 +47,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   
         agregarEventos();
       } catch (error) {
-        console.error("Error al cargar los aeropuertos:", error);
-        alert("No se pudo cargar la información de los aeropuertos.");
+        console.log("Error al cargar los registros:", error);
+        Swal .fire({
+          icon: 'error',
+          title: 'Error al cargar los registros',
+          text: 'No se pudo cargar la información de los aeropuertos.',
+        })
       }
     };
     
@@ -76,7 +84,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // funcion para buscar aeropuertos 
     const buscarAeropuerto = async (nombre) => {
         try {
-          const response = await fetch(`${backendUrl}/api/aeropuertos/${nombre}`);
+          // const response = await fetch(`${backendUrl}/api/aeropuertos/${nombre}`);
+          const response = await fetch(`/api/aeropuertos/${nombre}`);
           const result = await response.json();
           console.log("Resultado de la búsqueda:", result);
       
@@ -106,20 +115,35 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Reasignar los eventos de los botones después de que se ha agregado la fila
             agregarEventos();
             
-            alert(result.mensaje || 'Aeropuerto encontrado correctamente');
+            console.log(result.mensaje || 'Aeropuerto encontrado correctamente');
+            Swal.fire({
+              icon : 'success',
+              title : 'Aeropuerto encontrado correctamente',
+              text : result.mensaje || 'Aeropuerto encontrado correctamente'
+
+            });
           } else {
-            alert(`Error: ${result.mensaje || 'Aeropuerto no encontrado'}`);
+            console.log(`Error: ${result.mensaje || 'Aeropuerto no encontrado'}`);
+            Swal.fire({
+              icon : 'error',
+              title : 'Aeropuerto no encontrado',
+              text : result.mensaje || 'Aeropuerto no encontrado'
+            });
           }
         } catch (error) {
-          console.error('Error al buscar aeropuerto:', error);
-          alert('Ocurrió un error al buscar el aeropuerto. Inténtalo nuevamente.');
-        }
+          console.log("Error de sistema", error);
+          Swal.fire({
+          icon : "error",
+          title : "Error de sistema",
+          text : "El servidor no puede procesar la solicitud"
+          });
+      }
       };
       
     // funcion para editar aeropuertos 
     const editarAeropuerto = async (id_aeropuerto) => {
       try {
-        const response = await fetch(`${backendUrl}/api/aeropuertosID/${id_aeropuerto}`);
+        const response = await fetch(`/api/aeropuertosID/${id_aeropuerto}`);
         const result = await response.json();
   
         if (response.ok) {
@@ -140,45 +164,82 @@ document.addEventListener("DOMContentLoaded", async () => {
             const aeropuertoData = { nombre, ciudad, pais };
   
             try {
-              const response = await fetch(`${backendUrl}/api/aeropuertosID/${id_aeropuerto}`, {
+              const response = await fetch(`/api/aeropuertosID/${id_aeropuerto}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(aeropuertoData),
               });
   
               if (response.ok) {
-                alert("Aeropuerto actualizado correctamente");
+                console.log("Aeropuerto actualizado correctamente");
+                Swal.fire({
+                  icon : "success",
+                  title : "Aeropuerto actualizado correctamente",
+                  text : "El aeropuerto ha sido actualizado correctamente",
+                });
                 cargarAeropuerto();
+                formulario.reset();
                 submitButton.textContent = "Registrar";
                 formulario.onsubmit = registrarAeropuerto;
               } else {
-                alert(`Error al actualizar: ${response.statusText}`);
+                console.log(`Error al actualizar: ${response.statusText}`);
+                Swal.fire({
+                  icon : "error",
+                  title : "Error al actualizar",
+                  text : "Ha ocurrido un error al actualizar el aeropuerto"
+                });
               }
             } catch (error) {
-              console.error("Error al actualizar el aeropuerto:", error);
+              console.log("Error al actualizar el aeropuerto:", error);
+              Swal.fire({
+                icon : "error",
+                title : "Error al actualizar",
+                text : "Ha ocurrido un error al actualizar el aeropuerto"
+              })
             }
           };
         }
       } catch (error) {
-        console.error("Error al obtener los datos del aeropuerto:", error);
+        console.log("Error de sistema", error);
+        Swal.fire({
+          icon : "error",
+          title : "Error de sistema",
+          text : "El servidor no puede procesar la solicitud"
+          });
       }
     };
     
     // funcion para eliminar aeropuertos 
     const eliminarAeropuerto = async (id_aeropuerto) => {
       try {
-        const response = await fetch(`${backendUrl}/api/aeropuertosID/${id_aeropuerto}`, {
+        const response = await fetch(`/api/aeropuertosID/${id_aeropuerto}`, {
           method: "DELETE",
         });
   
         if (response.ok) {
-          alert("Aeropuerto eliminado correctamente");
+          console.log("Aeropuerto eliminado con exito");
+          Swal.fire({
+            icon: "susccess",
+            title: "Aeropuerto eliminado",
+            text: "El aeropuerto ha sido eliminado correctamente",
+          });
           cargarAeropuerto();
         } else {
-          alert(`Error al eliminar: ${response.statusText}`);
+          console.log( "Error al eliminar el aeropuerto:", response.statusText);
+          Swal.fire({ 
+            icon: "error",
+            title: "Error al eliminar",
+            text: "El aeropuerto no se pudo eliminar",
+          });
+        
         }
       } catch (error) {
-        console.error("Error al eliminar el aeropuerto:", error);
+        console.log ("Error al eliminar el aeropuerto:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error de sistema ",
+          text: "El servidor no puede procesar la solicitud",
+        })
       }
     };
     
@@ -193,7 +254,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const aeropuertoData = { nombre, ciudad, pais };
   
       try {
-        const response = await fetch(`${backendUrl}/api/aeropuertos`, {
+        const response = await fetch(`/api/aeropuertos`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(aeropuertoData),
@@ -202,8 +263,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         const result = await response.json();
   
         if (response.ok) {
-          alert("Aeropuerto registrado correctamente");
-          cargarAeropuerto();
+          console.log( "Aeropuerto registrado con exito");
+          Swal.fire({ 
+            icon: "success",
+            title: "Aeropuerto registrado",
+            text: "El aeropuerto ha sido registrado correctamente",
+            });
+            cargarAeropuerto();
           formulario.reset();
         } else if (response.status === 409) {
           alert("El aeropuerto ya existe.");

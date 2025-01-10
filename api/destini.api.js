@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const destinoTableBody = document.getElementById("destino");
   const aeropuertoDropdown = document.getElementById("id_aeropuerto");
   
-  // congiguracion del puerto el cual conecta el frontend y el backend
+  // Configuración del puerto que conecta el frontend y el backend
   let backendUrl = "";
   try {
     const configResponse = await fetch("/api/config");
@@ -11,14 +11,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     backendUrl = `http://localhost:${config.port}`;
   } catch (error) {
     console.error("Error al obtener la información del backend:", error);
-    alert("No se pudo obtener la configuración del servidor");
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "No se pudo obtener la configuración del servidor",
+    });
     return;
   }
 
-  // funcion para cargar los registros de la base de datos 
+  // Función para cargar los registros de destinos desde la base de datos
   const cargarDestinos = async () => {
     try {
-      const response = await fetch(`${backendUrl}/api/destino`);
+      const response = await fetch(`/api/destino`);
       const destinos = await response.json();
       destinoTableBody.innerHTML = "";
 
@@ -42,19 +46,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       agregarEventos();
     } catch (error) {
-      console.error("Error al obtener los destinos:", error);
+      console.log("Error al obtener los destinos:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo obtener la información de los destinos",
+      });
     }
   };
-  
-  // funcion para cargar los registrs de aeropuerto de la base de datos
+
+  // Función para cargar los aeropuertos en el dropdown
   const cargarAeropuertos = async () => {
     try {
-      const response = await fetch(`${backendUrl}/api/aeropuertos`);
+      const response = await fetch(`/api/aeropuertos`);
       const aeropuertos = await response.json();
 
-      // Limpiar el dropdown antes de llenarlo
-      aeropuertoDropdown.innerHTML =
-        '<option value="">Seleccione un Aeropuerto</option>';
+      aeropuertoDropdown.innerHTML = '<option value="">Seleccione un Aeropuerto</option>';
 
       aeropuertos.forEach((aeropuerto) => {
         const option = document.createElement("option");
@@ -63,31 +70,47 @@ document.addEventListener("DOMContentLoaded", async () => {
         aeropuertoDropdown.appendChild(option);
       });
     } catch (error) {
-      console.error("Error al cargar los aeropuertos:", error);
+      console.log("Error al cargar los aeropuertos:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo cargar la información de los aeropuertos",
+      });
     }
   };
-  
-  // funcion para agregar evento a los botones de editar y eliminar
+
+  // Función para agregar los eventos de editar y eliminar
   const agregarEventos = () => {
     const editButtons = document.querySelectorAll(".edit-btn");
     const deleteButtons = document.querySelectorAll(".delete-btn");
 
     editButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        const id_destino= button.getAttribute("data-id");
-        actualizarDestion(id_destino);
+        const id_destino = button.getAttribute("data-id");
+        actualizarDestino(id_destino);
       });
     });
 
     deleteButtons.forEach((button) => {
       button.addEventListener("click", () => {
         const destinoId = button.getAttribute("data-id");
-        eliminarDestino(destinoId);
+        Swal.fire({
+          title: "¿Estás seguro?",
+          text: "¡No podrás revertir esto!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Sí, eliminar",
+          cancelButtonText: "Cancelar",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            eliminarDestino(destinoId);
+          }
+        });
       });
     });
   };
-  
-  // funcion para registrar destinos 
+
+  // Función para registrar destinos
   const registrarDestino = async (event) => {
     event.preventDefault();
     const pais_llegada = document.getElementById("pais_llegada").value;
@@ -96,108 +119,147 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const destinoData = { pais_llegada, ciudad_llegada, id_aeropuerto };
     try {
-      const response = await fetch(`${backendUrl}/api/destino`, {
+      const response = await fetch(`/api/destino`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(destinoData),
       });
       const resultado = await response.json();
       if (response.ok) {
-        alert("Destino agregado correctamente");
+        Swal.fire({
+          icon: "success",
+          title: "Destino agregado",
+          text: "El destino ha sido agregado correctamente",
+        });
         cargarDestinos();
         formulario.reset();
       } else if (response.status === 409) {
-        alert(resultado.mensaje || "El destino ya existe");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: resultado.mensaje || "El destino ya existe",
+        });
       } else {
-        alert(resultado.mensaje || "Error al agregar el destino");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: resultado.mensaje || "Error al agregar el destino",
+        });
       }
     } catch (error) {
-      console.error("Error al registrar el destino:", error);
+      console.log("Error al registrar el destino:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error al registrar el destino",
+      });
     }
   };
 
-  // funcion para eliminar registro de la base de datos 
+  // Función para eliminar destino
   const eliminarDestino = async (id_destino) => {
     try {
-      const response = await fetch(`${backendUrl}/api/destino/${id_destino}`, {
+      const response = await fetch(`/api/destino/${id_destino}`, {
         method: "DELETE",
       });
 
       if (response.ok) {
-        alert("Destino eliminado correctamente");
+        Swal.fire({
+          icon: "success",
+          title: "Destino eliminado",
+          text: "El destino ha sido eliminado correctamente",
+        });
         cargarDestinos();
       } else {
-        alert(`Error al eliminar: ${response.statusText}`);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: `Error al eliminar: ${response.statusText}`,
+        });
       }
     } catch (error) {
-      console.error("Error al eliminar el destino:", error);
+      console.log("Error al eliminar el destino:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error al eliminar el destino",
+      });
     }
   };
 
-   // funcion para actualizar registro de la base de dstos 
-  const actualizarDestion = async (id_destino) => {
+  // Función para actualizar destino
+  const actualizarDestino = async (id_destino) => {
     try {
-      // Realizar la solicitud para obtener los datos del destino
-      const response = await fetch(`${backendUrl}/api/destino/${id_destino}`);
+      const response = await fetch(`/api/destino/${id_destino}`);
       const result = await response.json();
-  
+
       if (response.ok) {
-        // Llenar los campos del formulario con los datos obtenidos
         document.getElementById("pais_llegada").value = result.data.pais_llegada;
         document.getElementById("ciudad_llegada").value = result.data.ciudad_llegada;
         document.getElementById("id_aeropuerto").value = result.data.id_aeropuerto;
-  
-        // Cambiar el texto del botón a "Actualizar"
+
         const submitButton = document.querySelector('button[type="submit"]');
         submitButton.textContent = "Actualizar";
-  
-        // Cambiar la acción del formulario a "actualizar"
+
         formulario.onsubmit = async (event) => {
           event.preventDefault();
-  
+
           const pais_llegada = document.getElementById("pais_llegada").value;
           const ciudad_llegada = document.getElementById("ciudad_llegada").value;
           const id_aeropuerto = document.getElementById("id_aeropuerto").value;
-  
+
           const destinoData = { pais_llegada, ciudad_llegada, id_aeropuerto };
-  
+
           try {
-            // Realizar la solicitud PUT al backend
-            const response = await fetch(`${backendUrl}/api/destino/${id_destino}`, {
+            const response = await fetch(`/api/destino/${id_destino}`, {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(destinoData),
             });
-  
+
             if (response.ok) {
-              alert("Destino actualizado correctamente");
-  
-              // Recargar los destinos para reflejar los cambios
+              Swal.fire({
+                icon: "success",
+                title: "Destino actualizado",
+                text: "El destino ha sido actualizado correctamente",
+              });
               cargarDestinos();
-  
-              // Restaurar el formulario al estado original
               submitButton.textContent = "Registrar";
               formulario.onsubmit = registrarDestino;
               formulario.reset();
             } else {
               const errorData = await response.json();
-              alert(`Error al actualizar: ${errorData.message || response.statusText}`);
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: `Error al actualizar: ${errorData.message || response.statusText}`,
+              });
             }
           } catch (error) {
             console.error("Error al actualizar el destino:", error);
-            alert("Error al actualizar el destino");
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "Error al actualizar el destino",
+            });
           }
         };
       } else {
-        alert("No se pudo obtener los datos del destino.");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudo obtener los datos del destino.",
+        });
       }
     } catch (error) {
       console.error("Error al obtener el destino:", error);
-      alert("Error al obtener los datos del destino.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error al obtener los datos del destino.",
+      });
     }
   };
-  
-  
 
   formulario.onsubmit = registrarDestino;
   await cargarDestinos();

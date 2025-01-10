@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import morgan from 'morgan';
 import path from 'path';
 import { PORT } from './config/puerto.js';
@@ -17,6 +18,17 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.rute.js";
 const App = express();
 const __dirname = path.resolve();
+
+
+const corsOptions = {
+    origin: [
+        'http://localhost:3000', 
+        'https://rcr3j6l1-3000.use.devtunnels.ms',  // Asegúrate de que esta URL también esté permitida
+        
+    ],
+};
+App.use(cors(corsOptions));
+
 
 
 // configuracion de las funciones que permiten a el proyecto manejar los datos de los formularios 
@@ -42,11 +54,6 @@ App.get('/', (req, res) => {
 });
 
 
-// Ruta para obtener los aeropuertos desde la base de datos
-// Ya no es necesario hacer la consulta directamente en el index.js
-App.use('/api', aeropuertoRoutes);  // Esta línea conecta las rutas de aeropuertos
-
-
 
 // archivo para configurar el puerto, el cual se va a usar en el app.js para capturar los datos 
 App.get('/api/config', (req, res) => {
@@ -56,7 +63,7 @@ App.get('/api/config', (req, res) => {
 // archivo que manaja la logica para la captura de los datos desde el formulario html
 App.use('/api', express.static(path.join(__dirname, 'api')));
 
-// Rutas de aeropuertos
+
 App.use(aeropuertoRoutes);
 App.use(destinoRoutes);
 App.use(pasajeroRoutes);
